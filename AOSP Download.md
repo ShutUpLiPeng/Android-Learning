@@ -1,4 +1,4 @@
-# 国内不翻墙拉AOSP手顺
+# 1 国内不翻墙拉AOSP手顺
 https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/
 ## 安装repo工具
 ```
@@ -32,7 +32,7 @@ repo start android-9.0.0_r3 --all
 
    <remote  name="github"
 ```
-# AOSP代码编译
+# 2 AOSP代码编译
 https://source.android.com/setup/build/initializing
 ## 安装JDK
 ```
@@ -70,7 +70,7 @@ gedit prebuilts/sdk/tools/jack-admin
 prebuilts/sdk/tools/jack-admin stop-server;
 prebuilts/sdk/tools/jack-admin start-server;
 ```
-# 初识out 目录
+# 3 初识out 目录
 最后编译会生成到统一的out目录
 ```
 out
