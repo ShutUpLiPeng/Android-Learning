@@ -1,3 +1,4 @@
+# Git
 可视化工具git-gui, tig, gitk：
 ```
 sudo apt-get install git-gui tig
@@ -34,12 +35,17 @@ git push origin HEAD:refs/for/A_BRANCH
 git branch -a
 ```
 - **git checkout**
-- ****
+- **git reset**
+```
+git reset --hard HEAD~
+```
 - **git log**
 ```
 git log dev...master
 git log --oneline
 ```
+- **git stash**
+- **git stash pop**
 - **git format-patch**
 - **git am**
 ```
@@ -48,3 +54,16 @@ git am ~/patch/0* --reject
 git am --continue
 ```
 
+# Repo
+- **repo init**
+- **repo sync**
+- **repo start**
+- **repo status**
+- **repo forall**
+```
+repo init -u https://android.googlesource.com/platform/manifest -b <branch>
+repo sync -c
+repo start <branch> --all
+repo foreall -gc "git log --oneline branch1..branch2" > ~/repoalldiff.txt
+
+```
