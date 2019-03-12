@@ -70,3 +70,31 @@ gedit prebuilts/sdk/tools/jack-admin
 prebuilts/sdk/tools/jack-admin stop-server;
 prebuilts/sdk/tools/jack-admin start-server;
 ```
+## out 目录初识
+最后编译会生成到统一的out目录
+```
+├── host
+│   ├── common
+│   ├── linux-x86
+│   └── windows-x86
+├── soong
+│   ├── host
+│   └── ndk
+│   └── .intermediates                         生成的中间文件如HIDL， AIDL自动生成的文件
+└── target
+    ├── common                                   生成的中间库， 文档等
+    │   ├── docs
+    │   ├── gen
+    │   ├── obj
+    │   └── R
+    └── product
+        ├── generic_x86_64                     img文件及最后生成库
+        │   ├── gen
+        │   ├── obj
+        │   ├── obj_x86
+        │   ├── recovery
+        │   ├── root
+        │   ├── symbols
+        │   ├── system
+        │   └── vendor
+```
