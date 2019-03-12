@@ -3,7 +3,6 @@ https://source.android.com/devices/tech/debug
 tombstone 是一个包含与崩溃进程相关的额外数据的文件。需要特别指出的是，它包含对以下内容进行的堆栈跟踪：
 崩溃进程中的所有线程（而不只是捕捉到信号的线程）、完整的内存映射，以及所有打开的文件描述符的列表。
 
-```
 $ cat /data/tombstones/tombstone_0*
 *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Build fingerprint: 'Android/aosp_angler/angler:7.1.1/NYC/enh12211018:eng/test-keys'
@@ -26,6 +25,5 @@ backtrace:
     #06 pc 0001a7e5  /system/lib/libc.so (__start_thread+34)
 Tombstone written to: /data/tombstones/tombstone_06
 
-```
 - **stack**
 
