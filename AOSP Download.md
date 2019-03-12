@@ -53,6 +53,7 @@ source build/envsetup.sh
 ## 选择lunch的target 
 ```
 lunch <target>
+如果没有实机， 可以编译模拟器版本
 ```
 ## 编译
 ```
@@ -70,7 +71,14 @@ gedit prebuilts/sdk/tools/jack-admin
 prebuilts/sdk/tools/jack-admin stop-server;
 prebuilts/sdk/tools/jack-admin start-server;
 ```
-# 3 初识out 目录
+# 3 fastboot烧写程序并启动
+```
+fastboot flash system_a system.img
+fastboot flash system_b system.img
+```
+如模拟器可以通过: emulator  -selinux permissive <-show-kernel | ...>启动
+
+# 4 初识out 目录
 最后编译会生成到统一的out目录
 ```
 out
