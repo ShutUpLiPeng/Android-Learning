@@ -1,4 +1,6 @@
 # Git
+https://git-scm.com/docs
+
 可视化工具git-gui, tig, gitk：
 ```
 sudo apt-get install git-gui tig
@@ -54,6 +56,7 @@ git format-patch BACK_BRANCH -o ~/patch
 git am ~/patch/0* --reject
 git am --continue
 ```
+- **git blame**
 
 # Repo
 - **repo init**
