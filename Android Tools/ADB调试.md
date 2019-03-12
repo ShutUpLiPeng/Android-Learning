@@ -1,6 +1,8 @@
 ## 配置adb
 lsusb
+
 /etc/udev/rules.d/51-android.rules 添加规则
+
 sudo service udev restart
 
 ## 常用命令
