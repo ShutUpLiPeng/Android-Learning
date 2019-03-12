@@ -29,4 +29,5 @@ adb root
 adb remount
 adb push out/target/product/generic_x86_64/vendor/lib64/libxxxx.so /vendor/lib64
 adb pull /data/tombstone/tombstone_00 ~
+adb install -r out/target/product/generic_x86_64/vendor/app/xxx/xxx.apk
 ```
