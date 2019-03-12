@@ -73,6 +73,7 @@ prebuilts/sdk/tools/jack-admin start-server;
 ## out 目录初识
 最后编译会生成到统一的out目录
 ```
+out
 ├── host
 │   ├── common
 │   ├── linux-x86
@@ -97,4 +98,5 @@ prebuilts/sdk/tools/jack-admin start-server;
         │   ├── symbols
         │   ├── system
         │   └── vendor
+        │   └── ...
 ```
