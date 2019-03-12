@@ -12,6 +12,7 @@ git config --global user.name  “xxx”
 git config --global commit.template ~/.git.commit_template.txt
 ```
 - **git pull**
+- **git diff**
 - **git add .**
 - **git commit**
 ```
