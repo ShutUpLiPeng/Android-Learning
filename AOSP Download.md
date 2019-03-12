@@ -70,7 +70,7 @@ gedit prebuilts/sdk/tools/jack-admin
 prebuilts/sdk/tools/jack-admin stop-server;
 prebuilts/sdk/tools/jack-admin start-server;
 ```
-## out 目录初识
+# 初识out 目录
 最后编译会生成到统一的out目录
 ```
 out
