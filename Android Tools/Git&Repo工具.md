@@ -46,6 +46,7 @@ git reset --hard HEAD~
 ```
 git log dev...master
 git log --oneline
+git log branch1..branch2 --no-decorate --oneline    // 比较两个分支之间提交的差异
 ```
 - **git stash**
 - **git stash pop**
