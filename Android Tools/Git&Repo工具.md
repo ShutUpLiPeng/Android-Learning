@@ -70,4 +70,6 @@ repo sync -c
 repo start <branch> --all
 repo foreall -gc "git log --oneline branch1..branch2" > ~/repoalldiff.txt
 
+repo forall -c 'echo "\033[32m project: $REPO_PROJECT\033[0m" && git log branch1..branch2 --no-decorate --oneline && echo'
+
 ```
