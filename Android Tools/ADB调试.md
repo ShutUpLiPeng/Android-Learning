@@ -3,6 +3,8 @@ lsusb
 
 /etc/udev/rules.d/51-android.rules 添加规则
 
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="e447", MODE="0666", OWNER="<username>"
+
 sudo service udev restart
 
 ## 常用命令
