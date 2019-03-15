@@ -94,22 +94,22 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/sdk.mk)
 # Use 'make PRODUCT-<PRODUCT_NAME>-sdk_addon' to build the add-on.
 PRODUCT_NAME := sample_addon
 ```
-## PRODUCT_PACKAGES ##
+## PRODUCT_PACKAGES
 - List of apps and optional libraries (Java and native) to put in the add-on system and vendor image.
 - 需要编译的Java动态库静态库， Native C++库和进程文件等，会打包到img文件中
-## PRODUCT_COPY_FILES ##
+## PRODUCT_COPY_FILES
 - Manually copy the optional library XML files in the system and vendor image.
 - 需要在编译过程中拷贝到img文件中
-## PRODUCT_SDK_ADDON_NAME ##
+## PRODUCT_SDK_ADDON_NAME
 - name of the add-on
 - sdk addon的名字，必须要， 不然不会生成编译规则
-## PRODUCT_SDK_ADDON_COPY_FILES ##
+## PRODUCT_SDK_ADDON_COPY_FILES
 : Copy the manifest and hardware files for the SDK add-on. The content of those files is manually created for now.
 : 只是拷贝到sdk addon根目录里面
-## PRODUCT_SDK_ADDON_COPY_MODULES ##
+## PRODUCT_SDK_ADDON_COPY_MODULES
 - Copy the jar files for the optional libraries that are exposed as APIs.
 - 拷贝到jar到相应的目录
-## PRODUCT_SDK_ADDON_STUB_DEFS ##
+## PRODUCT_SDK_ADDON_STUB_DEFS
 - Rules for public APIs
 ```
 addon_stub_defs:
@@ -119,13 +119,13 @@ addon_stub_defs:
 其中：
   + +: 公开出去的package
   + -: 不公开的隐藏package
-## PRODUCT_SDK_ADDON_SYS_IMG_SOURCE_PROP ##
+## PRODUCT_SDK_ADDON_SYS_IMG_SOURCE_PROP
 - copy source.properties to image
-## PRODUCT_SDK_ADDON_DOC_MODULES ##
+## PRODUCT_SDK_ADDON_DOC_MODULES
 - Name of the doc to generate and put in the add-on.
-## PRODUCT_NAME ##
+## PRODUCT_NAME
 - Real name of the add-on. This is the name used to build the add-on.
-# 编译过程 #
+# 编译过程
 (1) 首先会在out/target/common/obj/JAVA_LIBRARIES/xxx_intermediates生成**stubs.jar**
 
 (2) 然后会根据**PRODUCT_SDK_ADDON_STUB_DEFS := $(LOCAL_PATH)/addon_stub_defs**文件来过滤stubs.jar
