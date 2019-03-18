@@ -1,0 +1,1 @@
+alias toXXX='cd ~/XXX/'
