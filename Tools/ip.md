@@ -1,5 +1,5 @@
 ip命令配置路由example：
-- **ip -6 rule**
+- **ip <-6> rule**
 查看所有的路由表
 ```
 127|generic_x86_64:/ $ ip -6 route            
@@ -19,13 +19,16 @@ generic_x86_64:/ $ ip -6 rule
 32000:	from all unreachable
 ```
 
-- ** ip -6 route show/list table  ... **
+- **ip <-6> route show/list table ...**
 查看某个路由表里面的配置详情
 ```
-ip -6 route list table local
+255|generic_x86_64:/ $ ip -6 route show table local                            
+local ::1 dev lo  proto none  metric 0 
+
 ip -6 route show table wlan0
 ```
-- **ip -6 route add ... **
+- **ip <-6> route add ...**
+添加路由信息
 ```
 ip -6 route add default dev usb0 table local
 ```
