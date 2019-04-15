@@ -1,0 +1,36 @@
+SEAndroid
+
+su
+echo 0 > /proc/sys/kernel/printk_enable
+
+setprop sys.usb.config none
+
+stop adbd
+
+logcat -s carplay-cpp airplay &
+
+dmesg | grep avc &
+
+
+root@android:/ # netstat                                                       
+Proto Recv-Q Send-Q Local Address          Foreign Address        State          i-Node 
+ tcp       0      0 0.0.0.0:5555           0.0.0.0:*              LISTEN         0x7450
+ tcp       0      0 0.0.0.0:53             0.0.0.0:*              LISTEN         0x7700
+ tcp       0      0 0.0.0.0:7000           0.0.0.0:*              LISTEN         0x7790
+ udp       0      0 127.0.0.1:60455        127.0.0.1:60455        ESTABLISHED    0x4917
+ udp       0      0 0.0.0.0:53             0.0.0.0:*              CLOSE          0x7699
+ udp       0      0 0.0.0.0:67             0.0.0.0:*              CLOSE          0x7696
+ udp       0      0 127.0.0.1:56158        127.0.0.1:56158        ESTABLISHED    0x8356
+ udp       0      0 127.0.0.1:57225        127.0.0.1:57225        ESTABLISHED    0x4918
+ udp       0      0 127.0.0.1:36249        127.0.0.1:36249        ESTABLISHED    0x9395
+ udp       0      0 0.0.0.0:5353           0.0.0.0:*              CLOSE          0x8290
+tcp6       0      0 :::7000                :::*                   LISTEN         0x7791
+tcp6       0      0 fe80::70e1:40ff:fe5a:54be:43506 fe80::140e:8dcc:f5ff:ab96:49862 ESTABLISHED          0x9397
+tcp6       0      0 fe80::70e1:40ff:fe5a:54be:41289 fe80::140e:8dcc:f5ff:ab96:49860 TIME_WAIT    0x0
+tcp6       0      0 fe80::70e1:40ff:fe5a:54be:7000 fe80::140e:8dcc:f5ff:ab96:49861 ESTABLISHED   0x8302
+tcp6       0      0 fe80::70e1:40ff:fe5a:54be:60103 fe80::140e:8dcc:f5ff:ab96:49863 ESTABLISHED          0x8354
+udp6       0      0 fe80::70e1:40ff:fe5a:54be:45800 fe80::140e:8dcc:f5ff:ab96:59973 ESTABLISHED          0x9394
+udp6       0      0 :::5353                :::*                   CLOSE          0x8291
+
+[fe80::1411:4c9b:b66b:9eb2%usb0]:50018 to [fe80::d888:faff:fe81:be01%usb0]:7000
+
