@@ -1,0 +1,190 @@
+http://2bab.me/2017/03/10/android-source-development-notes-2/
+http://blog.csdn.net/itachi85/article/details/54695046
+http://blog.csdn.net/fengliang191/article/details/40678731
+以上链接不是最新的AndroidO, 可能与AndroidO有部分出入
+http://androidxref.com
+https://www.androidos.net.cn/
+
+##########################################
+AndroidO 源代码目录结构:
+|-- Android.bp -> build/soong/root.bp
+|-- bootstrap.bash -> build/soong/bootstrap.bash*
+|-- .repo/               
+|-- Makefile               // 在顶层目录编译，利用的默认Makefile，它只是简单包含了 build/core/main.mk
+|-- art/                   // 全新的ART运行环境 Android Runtime
+|-- bionic/                // bionic C库,Android没有使用标准的glibc库，而是自己重新实现了一套 C/C++库，包括 libc libdl libm libstdc++
+|-- bootable/              // 包含两个工程，recovery 和 diskinstaller，刷机或者系统升级都是由 Recovery完成的
+|-- build/                 // 存放Android编译系统核心代码, 定义了整个 Build 系统的框架, ep: envsetup.sh
+|-- compatibility/         // Android兼容性定义cdd(Compatibility Definition Document)文档
+|-- cts/                   // Android 兼容性测试套件标准cts(Compatibility Test Suite)
+|-- dalvik/                // dalvik Java 虚拟机，Android 用的 Java 虚拟机和 PC 上用的 JVM 不一样
+|-- developers/            // 开发者目录
+|-- development/           // 应用程序开发相关
+|-- device/                // 设备相关配置文件，存放规则 device/\$vendor/\$product
+|-- docs/                  // 参考文档目录
+|-- external/              // 用到的第三方库 像toybox mdnsresponder tinyalsa等都存放在该目录
+|-- frameworks/            // 应用程序框架，Android系统核心部分，由Java和C++编写
+|-- hardware/              // 部分厂家开源的硬件抽象层HAL代码, alsa等
+|-- kernel/                // 内核源码目录 存放规则 kernel/\$vendor/\$product
+|-- libcore/               // Java核心库相关文件, 像 xml Jason luni
+|-- libnativehelper/       // 动态库，实现JNI库的基础, Support functions for Android’s class libraries
+|-- out/                   // 编译完成后代码输出在此目录
+|-- packages/              // 应用程序包，存放了Android自带的一些软件
+|-- pdk/                   // Plug Development Kit的缩写，本地开发套件, The goal of the PDK release is to help chipset vendors and OEMs to migrate to a new relelase
+|-- platform_testing/      // 平台测试
+|-- prebuilts/             // x86和arm架构下预编译的一些资源
+|-- sdk/                   // sdk及模拟器
+|-- system/                // 核心代码，包含了最小化可启动的环境，还有底层调试及检查工具
+|-- test/                  // vts(Vendor Test Suite)测试, Android Treble计划
+|-- toolchain/             // 工具链文件, binutils库， 包含链接和汇编等工具， ld, as, addr2line， readelf等
+|-- tools/                 // 工具， apksig， loganalysis
+|-- vendor/                // 设备制造商专用的配置存放目录
+少了ndk, abi目录
+
+重要的目录: 
+frameworks/         // 应用框架层, C++/Java代码, 为应用开发提供Java API, 一般通过JNI来调用Native C++代码
+device/             // 主要用来设置针对某个产品的配置文件, init.XXX.rc, BoardConfig.mk, product.mk, device.mk. 目录结构device/mediatek/mt2712
+ivi/                // 整个项目提交和修改的主要代码库
+system/             // 系统核心代码
+hardware/           // 硬件抽象层HAL代码, AndroidO新增HIDL
+kernel/             // Linux内核, 如配置驱动
+external/           // 开源的第三方依赖库
+vendor/             // 设备制造商专用的配置存放目录
+例如
+###########
+system目录：
+system/
+|-- core/                            // 核心代码
+|   |-- rootdir/                     // Android系统/目录下的文件
+|   |    |-- init.rc                 // init.rc: init配置文件, 可以起进程, 设置属性等
+|   |    |-- ...
+|   |-- init/                        // init进程及解析init.rc的源代码目录
+|   |-- libcutils/                   // C语言底层库, Android 本地中最为基础的库, 一般来说编译基础库时都需要包含它
+|   |-- libutils/                    // 基础库, RefBase.cpp, Threads.cpp, String16.cpp, StrongPointer.cpp, String8.cpp
+|   |-- liblog/                      // log库
+|   |-- logcat/                      // logcat工具， logcatd进程
+|   |-- lmkd/                        // Low Memory Killer进程， 内存管理
+|   |-- ...
+|-- hardware/
+|   |-- interfaces/                  // For HIDL: android.system.*
+|-- libhidl/                         // For HIDL: android.hidl.*
+|-- libhwbinder/                     // hardware binder库
+|-- netd/                            // netd进程
+|-- sepolicy/                        // SEAndroid策略
+|-- ...
+
+###########
+framework目录：
+frameworks/
+|-- base/
+|   |-- api/                                      // API文档
+|   |-- cmds/                                     // am, pm等命令
+|   |-- core/                                     // 核心库
+|   |-- media/                                    
+|   |-- location/
+|   |-- service/
+|   |    |-- core/java/com/android/server/
+|   |    |      |-- am/                           // ActivityManagerService.java      
+|   |    |      |-- pm/                           // PackageManagerService.java
+|   |    |      |-- SystemService.java
+|   |    |      |-- ...
+|   |-- ...
+|-- av/
+|   |-- camera/
+|   |-- media/
+|   |    |-- audioserver/
+|   |    |-- libmedia/
+|   |    |-- libaudioclient/
+|   |    |-- libstagefright/
+|   |    |-- mediaserver/
+|   |    |-- mtp/
+|   |    |-- ...
+|   |-- include/
+|   |    |-- media/
+|   |    |     |-- audiohal/
+|   |    |     |-- stagefright/                        
+|   |    |     |         |-- foundation/               // media基础库， AMessage.h，ALooper.h，AString.h，ABuffer.h等
+|   |    |     |         |-- MediaCodec.h
+|   |    |     |         |-- AudioPlayer.h
+|   |    |     |         |-- ...
+|   |    |     |-- AudioTrack.h
+|   |    |     |-- AudioRecord.h
+|   |    |     |-- mediascanner.h
+|   |    |     |-- ...
+|   |-- services/
+|   |    |-- audioflinger/
+|   |    |-- audiopolicy/
+|   |    |-- mediacodec/
+|   |    |-- ...
+|   |-- ...
+|-- hardware/                                  // For HIDL: android.frameworks.*
+|   |-- interfaces/
+|-- native/
+|   |-- aidl/                                 // Surface.aidl
+|   |-- libs/
+|   |    |-- gui/                             // libgui库
+|   |    |-- ui/                              // libui库
+|   |    |-- binder/                          // libbinder库
+|   |    |-- ...
+|   |-- opengl/
+|   |-- ...
+|-- ... 
+
+###########
+external目录：
+external/
+|-- mdnsresponder/                    // mdnsd, boujour相关
+|-- selinux/
+|-- sqlite/
+|-- openssh/
+|-- opencv/
+|-- tinyalsa/
+|-- toybox/                           // 类似busybox
+|-- ...
+
+###########
+hardware目录：
+hardware/
+|-- broadcom/
+|-- interfaces/                      // For HIDL: android.hardware.*
+|    |-- audio/
+|    |-- graphics/
+|    |-- nfc/
+|    |-- radio/
+|    |-- bluetooth/
+|    |-- wifi/
+|    |-- ...
+|-- libhardware/
+|-- mediatek/                       // 联发科的HAL配置文件
+|    |-- audio/
+|    |-- display/
+|    |-- bt/
+|    |-- gps/
+|    |-- wlan/
+|    |-- ...
+|-- ..
+
+##########################################
+frameworks目录中重要目录:
+frameworks/base
+frameworks/base/services
+frameworks/base/services/core/java/com/android/server     // am, pm等java服务
+frameworks/av/services                                    // audioflinger, mediacodec, camera等服务
+frameworks/av/media/                                      // audioserver, mediaserver, libaaudio, libaudioclient, libmedia, libstagefright， mtp等\
+frameworks/native/services/surfaceflinger/
+frameworks/native/opengl/
+
+##########################################
+ep： android.hardware.example.extension.light@2.0    ====>>>>  hardware/interfaces/example/extension/light/2.0
+HIDL相关路径, package和对应的位置：
+android.hardware.*            hardware/interfaces/*
+android.frameworks.*	      frameworks/hardware/interfaces/*
+android.system.*	          system/hardware/interfaces/*
+android.hidl.*	              system/libhidl/transport/*
+HIDL生成工具：/system/tools/hidl/
+ps: AIDL生成工具：/system/tools/aidl/
+
+
+
+
+
