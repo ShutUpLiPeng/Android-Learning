@@ -2,7 +2,7 @@
 
 Binder是Android Framework层最常见的跨进程IPC通信的最常见的一种方式。AIDL是Binder的进一步封装， 其本质也是Binder， 目前可以通过aidl-cpp工具自动化生成C++侧代码。本文只讨论显式的Binder服务
 
-![Class Binder](C:\Users\lipeng\Desktop\Class Binder.png)
+![Class Binder](.\Class Binder.png)
 
 ## 发布Binder服务
 
